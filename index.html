@@ -34,7 +34,8 @@
       --grad: linear-gradient(90deg, #8f6cf2 0%, #d77fc9 52%, #f58a3a 100%);
     }
 
-    html { scroll-behavior: smooth; }
+    :root { --nav-h: 56px; }
+    html { scroll-behavior: smooth; scroll-padding-top: var(--nav-h); }
 
     body {
       background: linear-gradient(165deg, #e2d9fb 0%, #f1ebfd 30%, #fbf7ff 56%, #ffeedd 100%) fixed;
@@ -311,44 +312,6 @@
     }
 
     /* SPECS BAR */
-    .specs-bar {
-      position: relative; z-index: 2;
-      display: flex; justify-content: center;
-      max-width: 900px; width: calc(100% - 48px);
-      margin: 0 auto;
-      background: var(--panel);
-      border: 1px solid rgba(255,255,255,0.8);
-      border-radius: 20px;
-      overflow: hidden;
-      backdrop-filter: blur(14px);
-      -webkit-backdrop-filter: blur(14px);
-      box-shadow: 0 16px 40px rgba(122,79,214,0.12);
-      opacity: 0; transform: translateY(20px);
-      transition: opacity 0.6s ease, transform 0.6s ease;
-    }
-    .specs-bar.vis { opacity: 1; transform: translateY(0); }
-    .spec-item {
-      flex: 1; padding: 22px 10px;
-      display: flex; flex-direction: column; align-items: center; gap: 6px;
-    }
-    .spec-item + .spec-item { border-left: 1px solid var(--border); }
-    .spec-val {
-      font-family: 'Poppins', system-ui, sans-serif;
-      font-size: clamp(0.95rem, 3.6vw, 1.45rem);
-      font-weight: 800;
-      background: var(--grad);
-      -webkit-background-clip: text; background-clip: text;
-      color: transparent;
-      line-height: 1.1; text-align: center;
-    }
-    .spec-label {
-      font-size: clamp(0.56rem, 1.9vw, 0.66rem);
-      letter-spacing: 0.1em;
-      color: var(--ink-soft);
-      text-transform: uppercase;
-      font-weight: 500;
-      text-align: center; line-height: 1.4;
-    }
 
     /* Reveal helper (fade/slide in on scroll) */
     .rv {
@@ -458,6 +421,7 @@
       transition: opacity 0.7s ease 0.15s, transform 0.7s cubic-bezier(0.22,1,0.36,1) 0.15s;
     }
     .divider.vis { opacity: 1; transform: scaleX(1); }
+    .kv-sep { width: 100%; max-width: 900px; padding: 0; margin-bottom: 26px; }
     .div-line { flex: 1; height: 1px; background: linear-gradient(to right, transparent, rgba(122,79,214,0.4), transparent); }
     .div-center { display: flex; align-items: center; gap: 12px; padding: 0 20px; }
     .div-diamond {
@@ -521,7 +485,7 @@
       .nav-brand .ni { height: 17px; }
       .nav-brand .ng { height: 11px; }
       .nav-sep, .nav-brand .ng { display: none; }
-      #hero-section { padding: 72px 14px 64px; gap: 10px; min-height: 100vh; min-height: 100svh; justify-content: center; }
+      #hero-section { padding: 72px 14px 64px; gap: 10px; justify-content: center; }
       .hero-logo { width: min(560px, 74vw); }
       .tagline-img { width: min(260px, 54vw); margin-top: 0; }
       #cd-label { margin-top: 0; font-size: 0.64rem; }
@@ -536,8 +500,6 @@
       .img-section { padding: 18px 14px 28px; }
       .section-label { margin-bottom: 16px; }
       .img-frame { border-radius: 18px; }
-      .specs-bar { width: calc(100% - 28px); border-radius: 16px; }
-      .spec-item { padding: 16px 6px; }
       .price-pill { padding: 12px 24px 12px 28px; }
       .offer-item { padding: 12px 8px; }
       .launch { flex-direction: column; gap: 22px; padding: 32px 18px 30px; border-radius: 20px; }
@@ -557,7 +519,6 @@
     @media (max-width: 400px) {
       nav { padding: 12px 12px; }
       nav ul { gap: 12px; }
-      nav ul li:first-child { display: none; }
       .cd-block { padding: 16px 2px; }
       .cd-num { font-size: clamp(1.6rem, 12vw, 2.1rem); }
     }
@@ -598,6 +559,26 @@
     }
 
 
+
+    /* ===== SECTION PANELS: each nav target fills the screen below the nav,
+       so only that part is visible when you jump to it ===== */
+    #kv, #details, #mechanics {
+      min-height: calc(100vh - var(--nav-h));
+      min-height: calc(100svh - var(--nav-h));
+      min-height: calc(100dvh - var(--nav-h));
+      justify-content: center;
+    }
+    #hero-section { min-height: 100vh; min-height: 100svh; min-height: 100dvh; }
+    nav ul a.cur { color: var(--purple-deep); }
+    nav ul a.cur::after { transform: scaleX(1); }
+
+    @media (max-width: 340px) {
+      nav { padding: 12px 10px; }
+      nav ul { gap: 9px; }
+      nav ul a { font-size: 0.58rem; letter-spacing: 0.04em; }
+      .nav-brand .ni { height: 15px; }
+    }
+
     @media (prefers-reduced-motion: reduce) {
       *, *::before, *::after { animation: none !important; transition-duration: 0.01s !important; }
       html { scroll-behavior: auto; }
@@ -630,7 +611,7 @@
   </div>
   <ul>
     <li><a href="#hero-section">Pre-order</a></li>
-    <li><a href="#offers">Offers</a></li>
+    <li><a href="#kv">Poster</a></li>
     <li><a href="#details">Details</a></li>
     <li><a href="#mechanics">Mechanics</a></li>
   </ul>
@@ -691,27 +672,19 @@
 
 <!-- Key Visual -->
 <section class="img-section" id="kv">
-  <div class="section-label">Life Full of Color</div>
+  <div class="divider kv-sep" id="div0">
+    <div class="div-line"></div>
+    <div class="div-center">
+      <div class="div-dot"></div>
+      <div class="div-diamond"></div>
+      <div class="div-dot"></div>
+    </div>
+    <div class="div-line"></div>
+  </div>
   <div class="img-frame portrait" id="frame-1">
     <img src="FRONT_PAGE__2_.png" data-fb="FRONT_PAGE__2_.png" alt="Infinix HOT 70 Pro 5G – Life Full of Color, When I Hold You" width="1200" height="1699" loading="eager" id="kimg1" />
   </div>
 </section>
-
-<!-- Specs Bar -->
-<div class="specs-bar" id="specs-bar">
-  <div class="spec-item">
-    <span class="spec-val">Dynamic Shine</span>
-    <span class="spec-label">Design with Active Matrix Cube</span>
-  </div>
-  <div class="spec-item">
-    <span class="spec-val">50MP</span>
-    <span class="spec-label">SONY IMX882 Cam<br>Live Photo Mode</span>
-  </div>
-  <div class="spec-item">
-    <span class="spec-val">IP68</span>
-    <span class="spec-label">Ultimate Dustproof<br>&amp; Full Waterproof</span>
-  </div>
-</div>
 
 <!-- Divider -->
 <div class="divider" id="div1" style="margin: 48px 0 0;">
@@ -842,7 +815,7 @@ const isMobile = !finePointer || matchMedia('(max-width: 768px)').matches;
 const io = new IntersectionObserver(entries => {
   entries.forEach(e => { if (e.isIntersecting) e.target.classList.add('vis'); });
 }, { threshold: 0.06 });
-document.querySelectorAll('.img-frame, .divider, .specs-bar, .rv').forEach(el => io.observe(el));
+document.querySelectorAll('.img-frame, .divider, .rv').forEach(el => io.observe(el));
 
 // ===================== COUNTDOWN =====================
 // All times are Philippine Time (UTC+8)
@@ -898,6 +871,22 @@ function tick() {
 tick();
 cdInt = setInterval(tick, 1000);
 
+
+
+// ===================== NAV HEIGHT + ACTIVE LINK =====================
+const navEl = document.querySelector('nav');
+function setNavH() { document.documentElement.style.setProperty('--nav-h', navEl.offsetHeight + 'px'); }
+setNavH(); addEventListener('resize', setNavH); addEventListener('load', setNavH);
+if (document.fonts && document.fonts.ready) document.fonts.ready.then(setNavH);
+const spyLinks = [...document.querySelectorAll('nav ul a')];
+const spyTargets = spyLinks.map(a => document.querySelector(a.getAttribute('href')));
+function spy() {
+  const line = navEl.offsetHeight + innerHeight * 0.25;
+  let cur = 0;
+  spyTargets.forEach((t, i) => { if (t && t.getBoundingClientRect().top <= line) cur = i; });
+  spyLinks.forEach((a, i) => a.classList.toggle('cur', i === cur));
+}
+addEventListener('scroll', spy, { passive: true }); addEventListener('resize', spy); spy();
 
 // ===================== SCROLL PROGRESS + BACK TO TOP =====================
 const btt = document.getElementById('btt');
