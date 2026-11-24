@@ -375,7 +375,12 @@
       box-shadow: 0 30px 70px rgba(122,79,214,0.18), 0 8px 24px rgba(27,22,48,0.06), inset 0 1px 1px rgba(255,255,255,0.9);
     }
     .mech-title { font-weight: 800; font-size: clamp(1.35rem, 4.4vw, 2rem); line-height: 1.15; text-align: center; }
-    .mech-sub { margin-top: 0; font-weight: 700; font-size: clamp(0.72rem, 2.5vw, 0.9rem); letter-spacing: 0.18em; text-align: center; color: var(--purple-deep); }
+    .mech-sub {
+      margin: 0 auto 6px; text-align: center;
+      font-weight: 800; font-size: clamp(1.25rem, 5.4vw, 2rem); line-height: 1.2; letter-spacing: 0.06em;
+      background: var(--grad); -webkit-background-clip: text; background-clip: text; color: transparent; -webkit-text-fill-color: transparent;
+    }
+    .mech-sub::after { content: ''; display: block; width: 64px; height: 4px; margin: 14px auto 0; border-radius: 4px; background: var(--grad); }
     .mech section { margin-top: 28px; }
     .mech h3 { font-weight: 700; font-size: 0.86rem; letter-spacing: 0.12em; color: var(--purple-deep); margin: 0 0 12px; padding-bottom: 8px; border-bottom: 1px solid rgba(122,79,214,0.18); }
     .mech p { margin: 12px 0 0; color: var(--ink); }
@@ -385,12 +390,18 @@
     .mech-k { padding: 11px 16px; font-weight: 600; background: rgba(143,108,242,0.08); }
     .mech-v { padding: 11px 16px; }
     .mech-permit { margin-top: 26px; padding-top: 16px; border-top: 1px solid rgba(122,79,214,0.18); text-align: center; font-weight: 600; font-size: 0.8rem; letter-spacing: 0.02em; color: var(--ink-soft); }
+    .mech-link { display: inline-block; margin-top: 6px; font-weight: 600; color: var(--purple-deep); text-decoration: underline; text-underline-offset: 3px; }
+    .mech-link:hover { color: #d9560a; }
+    .mech-permit span { white-space: nowrap; }
+    .mech-permit, .mech-sub { text-wrap: balance; }
     .mech ul { list-style: none; margin: 0; padding: 0; }
     .mech li { position: relative; padding-left: 20px; margin-top: 8px; }
     .mech li::before { content: ''; position: absolute; left: 3px; top: 0.7em; width: 7px; height: 7px; border-radius: 50%; background: var(--orange); }
     .mech p + ul, .mech .mech-table + p { margin-top: 12px; }
     @media (max-width: 600px) {
-      .mech { padding: 24px 18px 26px; font-size: 0.86rem; border-radius: 22px; }
+      .mech { padding: 24px 18px 26px; font-size: 0.8rem; line-height: 1.6; border-radius: 22px; }
+      .mech h3 { font-size: 0.8rem; }
+      .mech-permit { font-size: 0.74rem; }
       .mech-row { grid-template-columns: 1fr; }
       .mech-k { padding: 9px 14px 2px; background: none; font-size: 0.76rem; letter-spacing: 0.04em; color: var(--purple-deep); }
       .mech-v { padding: 0 14px 10px; }
@@ -434,9 +445,10 @@
     }
     .offer-item { flex: 1; min-width: 0; padding: 18px 20px; display: flex; align-items: center; justify-content: center; }
     .offer-item img { width: 100%; max-width: 420px; height: auto; display: block; }
-    /* 2 offers on top, 3rd (Xpocket fan) centered underneath */
-    .offers-bar { flex-wrap: wrap; justify-content: center; }
-    .offer-item { flex: 0 0 50%; }
+    /* all 3 offers in one row */
+    .offers-bar { flex-wrap: nowrap; justify-content: center; align-items: center; }
+    .offer-item { flex: 1 1 0; padding: 18px 10px; }
+    @media (max-width: 768px) { .offers-bar { max-width: 100%; } #offers .offer-item { padding: 4px 3px; } }
 
     /* SCHEDULE: Grand Launch (separate) + Pre-order & Claiming (combined) */
     #details { padding-bottom: 20px; }
@@ -607,7 +619,7 @@
       .section-label { margin-bottom: 16px; }
       .img-frame { border-radius: 18px; }
       .price-pill { padding: 12px 24px 12px 28px; }
-      .offer-item { padding: 12px 8px; }
+      .offer-item { padding: 4px 3px; }
       .launch { flex-direction: column; gap: 22px; padding: 32px 18px 30px; border-radius: 20px; }
       .launch-txt { text-align: center; }
       .launch-sw { justify-content: center; }
@@ -916,12 +928,12 @@
       <div class="mech-table">
       <div class="mech-row"><div class="mech-k">Promotion Title</div><div class="mech-v">INFINIX HOT 70 PRO 5G PRE-ORDER PROMO</div></div>
       <div class="mech-row"><div class="mech-k">Promoting Company</div><div class="mech-v">Winstorm Royal Inc.</div></div>
-      <div class="mech-row"><div class="mech-k">Coverage</div><div class="mech-v">Participating Infinix Concept Stores, Kiosks and Authorized Dealers Nationwide [final store list required]</div></div>
+      <div class="mech-row"><div class="mech-k">Coverage</div><div class="mech-v">Participating Infinix Concept Stores, Kiosks and Authorized Dealers Nationwide [final store list required]<br><a class="mech-link" href="PARTICIPATING%20STORES.pdf" target="_blank" rel="noopener">View Participating Stores (PDF)</a></div></div>
       <div class="mech-row"><div class="mech-k">Pre-Order Period</div><div class="mech-v">December 11–17, 2026</div></div>
       <div class="mech-row"><div class="mech-k">Launch Date</div><div class="mech-v">December 18, 2026</div></div>
       <div class="mech-row"><div class="mech-k">Claiming Period</div><div class="mech-v">December 18–20, 2026</div></div>
       <div class="mech-row"><div class="mech-k">Registration Fee</div><div class="mech-v">₱500 reservation payment (exact amount to confirm)</div></div>
-      <div class="mech-row"><div class="mech-k">Eligible Variants</div><div class="mech-v">HOT 70 Pro 5G (6GB+256GB); HOT 70 Pro 5G (6GB+128GB)</div></div>
+      <div class="mech-row"><div class="mech-k">Eligible Variants</div><div class="mech-v">HOT 70 Pro 5G (6GB+256GB)</div></div>
       <div class="mech-row"><div class="mech-k">Promotion Type</div><div class="mech-v">Pre-order discount promotion</div></div>
       </div>
     </section>
@@ -983,20 +995,9 @@
         <li>Any change to approved mechanics is subject to applicable DTI requirements.</li>
       </ul>
     </section>
-    <p class="mech-permit">Per DTI Fair Trade Permit No. FTEB-272984 Series of 2026</p>
+    <p class="mech-permit">Per DTI Fair Trade <span>Permit No.</span> <span>FTEB-272984 Series of 2026</span></p>
   </article>
 </section>
-
-<!-- Hashtags -->
-<div id="hashtags">
-  <div class="ht-row">
-    <span class="ht-tag">#HotLikeYou</span>
-  </div>
-</div>
-
-<footer>
-  &copy; 2026 Infinix Mobile &nbsp;&middot;&nbsp; T&amp;C Apply
-</footer>
 
 <button id="btt" aria-label="Back to top" onclick="scrollTo({top:0,behavior:'smooth'})">
   <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"
